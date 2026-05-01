@@ -1,123 +1,169 @@
 ---
-title: "How I turned weekend indecision into a local media idea"
-description: "A transparent look at choosing a narrow local media niche: weekend plans near Naperville, delivered as a concise Telegram guide."
+title: "How I scoped a local weekend-guide MVP"
+description: "A step-by-step guide to choosing a small local media idea, audience, distribution channel, and first content loop."
 date: "2026-04-30"
-slug: "weekend-indecision-local-media-idea"
-tags: ["local media", "niche selection", "content strategy", "Telegram", "AI workflow"]
+slug: "finding-the-local-media-idea"
+tags: ["local media", "mvp", "telegram", "content strategy"]
 canonical_project: "Hermie Weekend"
 status: "draft"
 ---
 
-# How I turned weekend indecision into a local media idea
+# How I scoped a local weekend-guide MVP
 
-The product idea came from a boring recurring problem.
+Hermie Weekend started with a boring human problem: I wanted better weekend ideas near Naperville without digging through stale event calendars, Facebook pages, restaurant posts, park district PDFs, and random listicles.
 
-Every weekend, someone has to answer the same question: what should we do?
+That is a good MVP shape because the pain is specific. The audience is local. The content expires quickly. The product can be useful before it is complicated.
 
-Not in a grand, philosophical way. More like: the kids are restless, the weather is weird, we do not want to drive into Chicago, and nobody wants to spend 40 minutes digging through event calendars.
+This is the step-by-step process I used to turn that into a buildable project.
 
-That was the opening.
+## Step 1: write the one-sentence product
 
-## The first version of the audience
+The first version was this:
 
-I did not start with "everyone in the suburbs." That is too broad.
+```text
+Hermie Weekend helps people near Naperville find fun things to do this weekend, without scrolling through ten event calendars.
+```
 
-The first audience was more specific:
+That sentence made several decisions:
 
-People near Naperville and the western suburbs who want easy weekend ideas without doing the research themselves.
+- the geography is local, not national
+- the time window is weekends, not every day
+- the output is curated, not exhaustive
+- the audience is people who want plans, not event organizers
 
-That includes:
+If the sentence gets longer, the MVP is probably too broad.
 
-- parents who need kid-friendly plans
-- couples who want date ideas
-- people who want cheap or free things nearby
-- friends looking for something casual
-- local businesses and event organizers who need discovery
+## Step 2: choose the first geographic boundary
 
-The key was not just geography. It was mood.
+I used ZIP code 60564 as the anchor because it maps to south Naperville and nearby west-suburban options.
 
-Most event calendars are organized like databases: date, category, venue, city. Real people think differently. They think:
+The initial radius does not need to be mathematically perfect. It needs to be useful. For Hermie Weekend, useful meant:
 
-- I need a rainy-day save.
-- I need something that feels like a date.
-- I need to tire out the kids.
-- I want something that feels local and not generic.
+- Naperville
+- Aurora
+- Wheaton
+- Geneva
+- nearby DuPage County spots
+- occasional worth-the-drive ideas
 
-That became the content strategy.
+The rule I gave the agent for weekly picks was: prioritize events close to 60564, but allow a drive when the event is genuinely worth it.
 
-## Why Telegram instead of a full app
+## Step 3: choose the content promise
 
-A full app would have been a trap.
+I did not want "everything happening this weekend." That turns into a directory, and directories are hard to keep fresh.
 
-The first version did not need accounts, recommendations, maps, filters, or push notifications. It needed distribution.
+The promise became:
 
-Telegram was a good fit because the content could be short, forwardable, and broadcast-only. The channel could stay clean. No comments, no noisy group chat, no moderation nightmare on day one.
+```text
+5 to 8 curated picks for the upcoming Friday through Sunday.
+```
 
-The basic loop looked like this:
+That does three things:
 
-1. Research events and local options.
-2. Verify details from official or reliable sources.
-3. Publish a concise weekend drop.
-4. Let people forward it.
-5. Let businesses submit events through a form.
+- it creates a weekly production rhythm
+- it keeps the output short enough for Telegram
+- it forces curation instead of scraping everything
 
-That is enough to test whether anyone cares.
+A local guide wins by saving attention, not by showing the biggest database.
 
-## The brand constraint
+## Step 4: pick source hierarchy before writing content
 
-I wanted the project to be anonymous, so the brand had to do more work.
+The source rules matter because local event information gets messy fast.
 
-That meant the name could not feel like a generic local newsletter. It needed a little character. Something playful enough to remember but flexible enough to grow.
-
-Hermie Weekend worked because it sounded like a small local creature who knows where the fun is hiding.
-
-The voice became:
-
-- playful but useful
-- local but not municipal
-- concise but not boring
-- a little weird, in a good way
-
-That voice shaped the website copy:
-
-> Stop asking "what should we do?"
-
-And the product promise:
-
-> Plans worth leaving the house for.
-
-## Source strategy
-
-One important decision: user-submitted events would not automatically become posts.
-
-That matters because AI plus submissions can become a prompt-injection and spam problem fast. A local business can submit anything. A random person can submit a fake event. A scraped page can contain stale details.
-
-So the source hierarchy became:
+The agent was instructed to use this order:
 
 1. Official city and downtown calendars
-2. Park districts, libraries, venues, and attractions
-3. Local chambers and tourism pages
-4. Event platforms and blogs as discovery sources only
-5. User submissions as tips, not truth
+2. Park districts, libraries, museums, venues, and organizers
+3. Chambers of commerce and local tourism sites
+4. Secondary discovery sources like Eventbrite, Patch, local newspapers, and Facebook
+5. User-submitted tips through the form
 
-The agent can help gather and summarize. It should not blindly trust.
+Secondary sources are discovery, not proof. If Eventbrite mentions something hosted by a city or venue, the agent should look for the official page before posting.
 
-## The smallest useful product
+## Step 5: choose the first distribution channel
 
-The first real product was not the website. It was the weekly post.
+I chose Telegram before building a full newsletter or social presence.
 
-A good Hermie Weekend post needs to answer:
+The reasons were practical:
 
-- What is worth doing this weekend?
-- Who is it good for?
-- Where is it?
-- What is the catch or useful note?
-- Where can someone submit an event?
+- a Telegram channel can be broadcast-only
+- subscribers do not need to see each other
+- I can post short weekly picks
+- the brand can stay anonymous
+- it works well with a simple website CTA
 
-That is small enough to build quickly and useful enough to test.
+The important decision was to use a channel, not a group. A group invites moderation problems. A channel is closer to a lightweight local bulletin.
 
-The website, Telegram channel, logo, social preview, and automation all support that core behavior.
+## Step 6: decide how submissions work
 
-One good weekly drop. Every week.
+Open comments were not worth it at the start. They create spam, moderation, and prompt-injection risk.
 
-That is the product.
+Instead, the project uses a Tally form for event submissions:
+
+```text
+https://tally.so/r/b5209g
+```
+
+The rule is simple: submissions are tips, not posts. The agent can read them later, but nothing should auto-publish without verification.
+
+## Step 7: define the first automation
+
+The weekly automation prompt needed to be self-contained because scheduled jobs do not inherit the current chat.
+
+The job was set for Wednesday morning. The output should be a Telegram-ready weekend preview for the upcoming Friday through Sunday.
+
+The prompt logic looked like this:
+
+```text
+Produce 5 to 8 curated Hermie Weekend picks near ZIP 60564 for the upcoming Friday through Sunday.
+Use official or local sources.
+Prefer specific times, locations, price notes, and why it is worth going.
+End with the event submission form link.
+Do not schedule more jobs.
+```
+
+That turns the content loop into a draft factory.
+
+## Step 8: decide what not to build
+
+I did not build these on day one:
+
+- user accounts
+- comments
+- an event database
+- a recommendation engine
+- paid listings
+- a newsletter backend
+- a mobile app
+
+Those may become useful later. They are not needed to prove whether people want a better weekend guide.
+
+## Step 9: map the monetization path without adding ads yet
+
+The local guide can monetize later through:
+
+- local sponsorships
+- featured placements with disclosure
+- affiliate links for tools in the build journal
+- ads on the build/tutorial site
+- partnerships with local venues or organizers
+
+But the first version should not feel like a coupon site. Trust comes first.
+
+## The reusable local media MVP template
+
+Here is the template I would reuse:
+
+```text
+Audience: people near [ZIP/city] who want [specific recurring decision]
+Cadence: weekly or daily, not random
+Output: 5 to 8 curated picks
+Distribution: one channel first
+Submissions: form inbox, not public comments
+Sources: official first, secondary only for discovery
+Website: static landing page with CTA
+Automation: draft content on a schedule, human review until trusted
+Monetization: mapped but not forced into version one
+```
+
+Hermie Weekend is just one example. The same shape could work for rainy-day kids activities, cheap date nights, dog-friendly patios, local food popups, or senior-friendly weekend events.

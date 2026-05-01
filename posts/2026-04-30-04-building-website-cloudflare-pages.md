@@ -1,119 +1,242 @@
 ---
-title: "How I built and deployed a local media website with an AI agent and Cloudflare Pages"
-description: "A practical walkthrough of building the Hermie Weekend landing page, moving it into GitHub, deploying it to Cloudflare Pages, and fixing DNS details."
+title: "How I built and deployed the Hermie Weekend website on Cloudflare Pages"
+description: "A practical guide to creating a static landing page, moving it into its own GitHub repo, deploying with Wrangler, and verifying the live site."
 date: "2026-04-30"
-slug: "build-deploy-local-media-website-ai-cloudflare-pages"
-tags: ["Cloudflare Pages", "GitHub", "static site", "AI coding agent", "DNS", "local media"]
+slug: "building-website-cloudflare-pages"
+tags: ["cloudflare pages", "static site", "github", "frontend"]
 canonical_project: "Hermie Weekend"
 status: "draft"
 ---
 
-# How I built and deployed a local media website with an AI agent and Cloudflare Pages
+# How I built and deployed the Hermie Weekend website on Cloudflare Pages
 
-The first Hermie Weekend website was intentionally simple.
+The website had one job: make Hermie Weekend feel real and send people to the Telegram channel or event submission form.
 
-One page. Static HTML and CSS. No CMS. No framework. No backend. No login. No dashboard.
+I did not need a framework for that. A static HTML/CSS site was enough.
 
-That was the right choice.
+This is the build process as a guide.
 
-A local media idea does not need technical complexity on day one. It needs a page that explains the concept, links to the Telegram channel, and gives local businesses a way to submit events.
+## Step 1: decide what the landing page must do
 
-## The first website structure
+Before writing code, I defined the page requirements:
 
-The landing page had a few jobs:
-
-- explain Hermie Weekend in one screen
-- make the brand feel real
+- explain the product in one screen
 - link to the Telegram channel
 - link to the event submission form
-- show example use cases: date night, family plans, rainy-day saves, hidden gems
-- feel more like a playful local brand than a generic newsletter
+- show the local/Naperville focus
+- feel more like a weekend pass than a generic SaaS page
+- work well on mobile
+- be easy to deploy as static files
 
-The AI agent helped write and edit the static site files directly. It created the first page, then iterated on the design.
+The first version did not need a CMS, database, authentication, or admin UI.
 
-The visual direction became colorful and slightly chaotic: dark background, sticker-like ticket logo, polaroid-style event images, and playful copy.
+## Step 2: create the static site files
 
-The site did not need to look like a SaaS landing page. It needed to feel like a weekend pass.
+The core site used plain files:
 
-## Moving the project into its own GitHub repo
+```text
+index.html
+assets/
+  hermie-ticket-logo.svg
+  hermie-ticket-favicon.svg
+  hermie-ticket-favicon.png
+  hermie-social-card.png
+sitemap.xml
+robots.txt
+_redirects
+wrangler.toml
+README.md
+```
 
-At first, the website lived inside a broader prototype workspace. That got messy fast.
+The landing page included:
 
-So I had the agent move Hermie Weekend into a standalone source repository. That made the project easier to manage and deploy.
+- hero copy
+- Telegram CTA
+- Tally submission CTA
+- local weekend positioning
+- visual brand elements
+- Open Graph metadata
+- JSON-LD metadata
 
-The repo included:
+A static site is boring in the best way. You can inspect every file, deploy quickly, and avoid a whole class of runtime failures.
 
-- `index.html`
-- image assets
-- favicon assets
-- flyer and QR assets
-- copy drafts
-- `wrangler.toml` for Cloudflare Pages
-- `README.md`
-- `sitemap.xml`
-- `robots.txt`
-- redirects for retired or private design exploration pages
+## Step 3: move the project into its own GitHub repo
 
-That split mattered. A project becomes more real when it has its own repo, its own deploy target, and its own canonical domain.
+The site originally lived inside a broader prototypes folder. I moved it into a standalone repo so deployment and ownership were clean.
 
-## Deploying to Cloudflare Pages
+The local path became:
 
-Cloudflare Pages was a good fit because the site was static.
+```text
+./hermie-weekend
+```
 
-The deployment flow was straightforward once authentication was working:
+The GitHub repo became:
 
-1. Prepare the static site directory.
-2. Deploy with Wrangler to the Cloudflare Pages project.
-3. Verify the live URL with HTTP checks and browser tests.
-4. Keep the GitHub repo as the source of truth.
+```text
+alexzadclaw-ai/hermie-weekend
+```
 
-The production domain became:
+The general extraction pattern is:
 
-`https://www.hermieweekend.fun/`
+```bash
+OLD_REPO=/path/to/old/repo
+SUBDIR=site-or-project-folder
+NEW_DIR=/path/to/new/project
 
-The Cloudflare Pages preview domain stayed useful for testing individual deployments before checking the custom domain.
+cp -a "$OLD_REPO/$SUBDIR" "$NEW_DIR"
+cd "$NEW_DIR"
 
-## DNS was the boring part, which means it mattered
+git init -b main
+git add .
+git commit -m "Initial site"
+gh repo create repo-name --public --source . --remote origin --push
+```
 
-DNS was not glamorous, but it was one of the places where the agent was useful.
+If GitHub CLI creates an SSH remote and the push fails in a headless environment, switch to HTTPS:
 
-The `www` subdomain pointed to Cloudflare Pages. The root domain had registrar limitations, so the practical setup was a root redirect to the `www` version.
+```bash
+git remote set-url origin https://github.com/OWNER/REPO.git
+git push -u origin main
+```
 
-That meant the canonical URL needed to be consistent everywhere:
+That happened in a related repo later, so it is worth knowing.
 
-- canonical link tag
-- Open Graph URL
-- structured data
-- sitemap
-- robots file
-- QR code
-- flyer PDF
-- README
+## Step 4: configure Cloudflare Pages
 
-This is the kind of detail that is easy to forget when you are building quickly. It is also the kind of detail that makes the project feel less broken when someone actually shares it.
+The project uses Cloudflare Pages with Wrangler.
 
-## The site was not done when it deployed
+A minimal `wrangler.toml` for a static Pages project can look like this:
 
-The first deploy was not the end. It was the start of a round of practical fixes:
+```toml
+name = "hermie-weekend"
+pages_build_output_dir = "."
+```
 
-- the logo looked good on mobile but needed desktop spacing adjustments
-- old internal mockup pages needed redirects
-- the canonical domain needed to be reflected in metadata
-- social previews needed a real image
-- Lighthouse found image and accessibility issues
+For manual deploys, I used a clean deploy directory so random local design artifacts would not get published:
 
-This is where using an AI agent felt different from using a chatbot.
+```bash
+rm -rf /tmp/hermie-weekend-deploy
+mkdir -p /tmp/hermie-weekend-deploy
+rsync -a \
+  --exclude='.git' \
+  --exclude='node_modules' \
+  --exclude='*.log' \
+  ./ /tmp/hermie-weekend-deploy/
 
-A chatbot can suggest fixes. An agent can edit files, run checks, deploy, and verify the live result.
+npx wrangler pages deploy /tmp/hermie-weekend-deploy \
+  --project-name hermie-weekend \
+  --branch main \
+  --commit-dirty=true
+```
 
-That loop is the product.
+The exact exclude list depends on the project. The point is to deploy the public site, not every scratch file.
 
-## Why I stayed static
+## Step 5: connect the domain
 
-I could have reached for a framework. I did not.
+The canonical site URL became:
 
-For v1, static HTML was enough. It loaded fast, deployed easily, and kept the project understandable.
+```text
+https://www.hermieweekend.fun/
+```
 
-The lesson was simple: when the business risk is "will anyone care?" do not spend your time solving framework problems.
+The root domain forwards to the `www` domain. The `www` record points at Cloudflare Pages.
 
-Put the page online. Make it shareable. Start publishing.
+The page metadata had to match the canonical domain:
+
+```html
+<link rel="canonical" href="https://www.hermieweekend.fun/" />
+<meta property="og:url" content="https://www.hermieweekend.fun/" />
+```
+
+I also updated `sitemap.xml`, `robots.txt`, QR code assets, and README references so the public URL was consistent everywhere.
+
+## Step 6: implement the selected logo direction
+
+The selected mark was a vintage ticket/pass badge.
+
+The production version used:
+
+```text
+assets/hermie-ticket-logo.svg
+assets/hermie-ticket-favicon.svg
+assets/hermie-ticket-favicon.png
+```
+
+The header uses the logo as an absolutely positioned image with a slight rotation and drop shadow. A detail that mattered: global `img { max-width: 100%; }` rules can shrink or clip positioned logos. The fix was to explicitly set `max-width: none` for the desktop logo and restore safe sizing on mobile.
+
+The key lesson: if a logo is meant to break out of a container, test the actual browser layout. CSS that looks reasonable in isolation can clip in the header.
+
+## Step 7: hide design artifacts from public browsing
+
+During design exploration, the repo had files like logo mockups and concept sheets. I did not want those indexed or treated as public pages.
+
+Cloudflare Pages supports `_redirects`. I used it to redirect retired paths back to `/`.
+
+Example:
+
+```text
+/hermie-logo-ideas.html / 302
+/hermie-ticket-logo-variations.html / 302
+/checklist.html / 301
+```
+
+The exact list should match whatever scratch files exist. The goal is to avoid public duplicate pages and half-finished artifacts.
+
+## Step 8: verify the live site with a browser
+
+A deploy is not done until the live site has been checked.
+
+I used Playwright/Chromium to verify:
+
+- status code is 200
+- final URL is correct
+- title is correct
+- hero text appears
+- Telegram links exist
+- Tally links exist
+- no browser console errors
+- no failed requests
+
+A simple Playwright check looks like this:
+
+```js
+const { chromium } = require('playwright');
+
+const browser = await chromium.launch({
+  executablePath: '/snap/bin/chromium',
+  headless: true
+});
+const page = await browser.newPage();
+const errors = [];
+page.on('console', msg => {
+  if (msg.type() === 'error') errors.push(msg.text());
+});
+await page.goto('https://www.hermieweekend.fun/', { waitUntil: 'networkidle' });
+console.log(await page.title());
+console.log(await page.locator('a[href*="t.me/hermieweekend"]').count());
+console.log(errors);
+await browser.close();
+```
+
+## Step 9: commit after each meaningful fix
+
+The site evolved through small commits:
+
+- initial standalone site
+- logo and favicon
+- redirect scratch files
+- header spacing fix
+- desktop logo crop fix
+- domain metadata update
+- social preview image metadata
+- Lighthouse improvements
+
+That commit history made it easier to reason about what changed.
+
+## Step 10: keep the site simple until the content loop works
+
+A static landing page is enough for this stage. The project needs audience and content rhythm before it needs a bigger stack.
+
+The website is the front door. The Telegram channel is the first distribution product. The form is the first feedback loop.
+
+That is enough surface area for an MVP.

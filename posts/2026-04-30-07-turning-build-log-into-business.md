@@ -1,141 +1,258 @@
 ---
-title: "Turning a tiny AI-built local project into a monetizable blog"
-description: "How the Hermie Weekend build journey can become a transparent blog about AI agents, local media, hosting, deployment, and automation without turning into affiliate spam."
+title: "How I turned the build itself into a blog content strategy"
+description: "A step-by-step guide to turning an AI-assisted project history into instructional posts, a static blog frontend, and future monetization without stuffing in affiliate links too early."
 date: "2026-04-30"
-slug: "turn-ai-built-local-project-into-monetizable-blog"
-tags: ["affiliate strategy", "AI agents", "blogging", "local media", "build log", "monetization"]
+slug: "turning-build-log-into-business"
+tags: ["blogging", "seo", "affiliate strategy", "content operations"]
 canonical_project: "Hermie Weekend"
 status: "draft"
 ---
 
-# Turning a tiny AI-built local project into a monetizable blog
+# How I turned the build itself into a blog content strategy
 
-At some point, I realized there were two projects.
+At some point I realized Hermie Weekend was two projects.
 
-The first project was Hermie Weekend: a local weekend guide for people near Naperville and the western suburbs.
+The first project is the local weekend guide. The second project is the build journal: a transparent tutorial series about using AI agents to build, deploy, launch, and polish a small internet business.
 
-The second project was the build itself.
+This post explains how I turned the chat history into a blog repo without publishing the raw chat.
 
-That second project might be just as interesting. Maybe more interesting to a different audience.
+## Step 1: define the content angle
 
-A lot of people are trying to figure out what AI agents are actually good for. Not demos. Not benchmarks. Real work. A small local media brand is a good test case because it touches so many practical pieces:
+The first draft was too shallow. It told the story, but it did not teach enough.
 
-- idea development
-- branding
-- web design
-- GitHub
-- Cloudflare Pages
-- DNS
-- Telegram distribution
-- social previews
-- Lighthouse
-- content workflows
-- automation
-- privacy and prompt-injection concerns
-- eventual monetization
+The better angle is instructional:
 
-That is a lot of surface area for one tiny project.
+```text
+Every episode should be a step-by-step guide someone can use.
+```
 
-## Why write the build log
+That changed the posts from founder diary to practical tutorial.
 
-The build log has three jobs.
+The target reader is someone searching for things like:
 
-First, it documents what happened. That is useful for me because tiny projects become blurry fast. A week later, you forget why a decision was made.
+- how to build a local media site with AI
+- how to deploy a static site to Cloudflare Pages
+- how to launch a Telegram channel for a project
+- how to fix WhatsApp link previews
+- how to run Lighthouse on a static site
+- how to build anonymously without exposing private identity
 
-Second, it can help other people. A transparent tutorial is more useful than a polished launch announcement. Most people do not need inspiration. They need to know what broke and how it got fixed.
+## Step 2: create a separate repository
 
-Third, it can become a separate media asset.
+The build journal should not live inside the product website repo.
 
-The audience for Hermie Weekend is local. The audience for the build log is much broader: founders, marketers, developers, creators, local newsletter operators, and people trying to use AI agents for real projects.
+The journal repo is:
 
-## Monetization without ruining the content
+```text
+alexzadclaw-ai/hermie-weekend-build-journal
+```
 
-The obvious monetization path is affiliate revenue.
+Local path:
 
-AI tools, hosting providers, domains, CDNs, analytics, newsletter tools, automation platforms, and form builders all have commercial intent. People searching for how to build a project like this are often close to choosing tools.
+```text
+./hermie-weekend-build-journal
+```
 
-That does not mean every post should become a coupon page.
+The structure is intentionally portable:
 
-The clean version is better:
+```text
+README.md
+index.md
+index.html
+posts/
+  2026-04-30-01-first-hello-ai-agent.md
+  2026-04-30-02-finding-the-local-media-idea.md
+  2026-04-30-03-building-anonymous-brand-with-ai.md
+  2026-04-30-04-building-website-cloudflare-pages.md
+  2026-04-30-05-launching-telegram-channel.md
+  2026-04-30-06-fixing-dns-social-previews-lighthouse.md
+  2026-04-30-07-turning-build-log-into-business.md
+scripts/
+  verify-frontend.js
+```
 
-- write the real story first
-- explain why each tool was used
-- show the tradeoffs
-- include alternatives where useful
-- add affiliate links later only where they fit naturally
-- disclose them clearly
+Markdown with frontmatter keeps the content portable. Later it can move to Astro, Hugo, Jekyll, Next.js, or another static generator.
 
-Trust is more valuable than a few forced clicks.
+## Step 3: write frontmatter for every post
 
-## Possible content clusters
+Each post uses frontmatter like this:
 
-The build log can become a blog site with a few strong clusters.
+```md
+---
+title: "How I fixed DNS, WhatsApp thumbnails, Lighthouse issues, and browser console checks"
+description: "A technical step-by-step guide to production polish for a static site."
+date: "2026-04-30"
+slug: "fixing-dns-social-previews-lighthouse"
+tags: ["dns", "open graph", "lighthouse", "playwright", "performance"]
+canonical_project: "Hermie Weekend"
+status: "draft"
+---
+```
 
-### AI agents for real projects
+The important fields are `title`, `description`, `slug`, `tags`, and `status`.
 
-Posts in this cluster can cover how an agent helped plan, code, deploy, test, and iterate. The angle is not "AI replaced me." The angle is "AI made the boring execution loops faster."
+Keeping `status: "draft"` is useful because these are not final published posts yet. They are strong drafts that can be edited before a real blog launch.
 
-Possible posts:
+## Step 4: convert the transcript into lessons, not a transcript
 
-- How I used an AI agent to launch a local media brand
-- What AI agents are good at when building a real website
-- Where I still had to make human decisions
-- How to avoid prompt-injection risks in public workflows
+Raw chat history is not a blog post. It includes false starts, tool outputs, private details, and fragments that only make sense in context.
 
-### Static site and hosting tutorials
+The conversion process is:
 
-This cluster can target people building small public websites.
+```text
+1. Identify the real sequence of work.
+2. Group related tasks into episodes.
+3. Remove private details and credentials.
+4. Turn each episode into a guide.
+5. Include commands, file names, and verification steps.
+6. Explain what broke and how it was fixed.
+7. Keep the first-person voice, but make the reader able to follow along.
+```
 
-Possible posts:
+That is the difference between "content" and documentation.
 
-- How to deploy a static site to Cloudflare Pages
-- How to set up a custom domain for a static site
-- How to fix WhatsApp link previews with Open Graph images
-- How to use Lighthouse to clean up a launch page
+## Step 5: keep monetization out of the first draft
 
-### Local media playbook
+The goal is ad and affiliate revenue later, but I kept the first version clean.
 
-This cluster can help people starting local newsletters, Telegram channels, or event guides.
+That means no affiliate links yet. No fake tool rankings. No forced recommendations.
 
-Possible posts:
+The monetization map is still obvious:
 
-- How to pick a local media niche
-- Why I chose Telegram for a local weekend guide
-- How to source local events without copying stale listicles
-- How to accept event submissions without turning into a spam board
+- AI coding agents and AI providers
+- hosting platforms
+- CDN and DNS tools
+- domain registrars
+- static site generators
+- form tools
+- Telegram tooling
+- analytics and monitoring tools
 
-## What I would not do yet
+But the editorial order matters. Publish useful, specific posts first. Add disclosed affiliate links only where they genuinely fit.
 
-I would not add ads on day one.
+## Step 6: build a quick static frontend
 
-Ads need traffic, and a brand-new blog usually does not have enough traffic to justify the clutter. Affiliate links and sponsorships can come later, once the content has search demand and trust.
+I added a self-contained `index.html` so the repo can be previewed without a full blog framework.
 
-I would also avoid pretending the project is bigger than it is.
+The frontend includes:
 
-The honest angle is stronger: this is a tiny local project, built transparently with an AI agent, and the details are the point.
+- hero section
+- seven post cards
+- embedded post data
+- click-to-read modal
+- links to Markdown source files
+- a section explaining the future monetization strategy
 
-## The business shape
+This is not the final blog engine. It is a preview artifact.
 
-If this works, the business has two layers.
+## Step 7: verify the frontend in a browser
 
-Layer one is local:
+I added a Playwright verification script:
 
-- local sponsors
-- event submissions
-- featured placements with clear labeling
-- maybe a local deals or weekend pass product later
+```js
+const { chromium } = require('playwright');
+const path = require('path');
 
-Layer two is educational:
+(async () => {
+  const file = path.resolve(__dirname, '..', 'index.html');
+  const browser = await chromium.launch({ executablePath: '/snap/bin/chromium', headless: true });
+  const page = await browser.newPage({ viewport: { width: 1440, height: 1200 } });
+  const messages = [];
+  const failures = [];
 
-- blog traffic
-- affiliate revenue from tools used in the build
-- templates and guides
-- maybe a paid playbook for launching local AI-assisted media projects
+  page.on('console', msg => messages.push({ type: msg.type(), text: msg.text() }));
+  page.on('pageerror', err => failures.push({ type: 'pageerror', text: err.message }));
+  page.on('requestfailed', req => failures.push({ type: 'requestfailed', url: req.url(), text: req.failure()?.errorText }));
 
-That second layer is interesting because it is not limited to Naperville.
+  await page.goto('file://' + file, { waitUntil: 'domcontentloaded' });
+  const result = await page.evaluate(() => ({
+    title: document.title,
+    cards: document.querySelectorAll('.post-card').length,
+    postDataCount: JSON.parse(document.getElementById('postData').textContent).length
+  }));
 
-The local brand proves the process. The build blog explains the process. The blog can travel farther than the local channel.
+  await page.click('a[href^="#post-"]');
+  const modal = await page.evaluate(() => ({
+    open: document.querySelector('#reader').classList.contains('open'),
+    articleChars: document.querySelector('#article').innerText.length
+  }));
 
-That is the opportunity.
+  console.log(JSON.stringify({ result, modal, messages, failures }, null, 2));
+  await browser.close();
+})();
+```
 
-A tiny weekend guide can also be a case study in how small AI-assisted businesses get built now.
+The check confirms:
+
+- 7 post cards render
+- embedded post data loads
+- the reader modal opens
+- no console errors appear
+- no requests fail
+
+## Step 8: push and preview with GitHub HTMLPreview
+
+The repo can be viewed through GitHub HTMLPreview:
+
+```text
+https://htmlpreview.github.io/?https://github.com/alexzadclaw-ai/hermie-weekend-build-journal/blob/main/index.html
+```
+
+That is enough for a quick review. For production, I would deploy the blog to Cloudflare Pages or another static host.
+
+## Step 9: plan the real blog version
+
+The next version should probably use a static site generator.
+
+A practical stack would be:
+
+```text
+Astro or Eleventy
+Markdown content collection
+one post per URL
+RSS feed
+sitemap
+Open Graph images
+analytics
+affiliate disclosure page
+privacy policy
+Cloudflare Pages deployment
+```
+
+The current `index.html` is useful for previewing. It is not the final SEO architecture because posts inside a JavaScript modal do not get the same treatment as separate crawlable pages.
+
+## Step 10: create an affiliate policy before adding links
+
+Before monetizing, I need a clear rule:
+
+```text
+Affiliate links are allowed only when the post already explains the tool through real use, and the link is disclosed near the recommendation.
+```
+
+I do not want the blog to become a fake review site.
+
+A future disclosure could say:
+
+```text
+Some posts may contain affiliate links. If I recommend a tool, it is because I used it in the project or would use it for the same job again.
+```
+
+## Build-journal checklist
+
+```text
+[ ] Create separate repo.
+[ ] Write posts in Markdown with frontmatter.
+[ ] Keep posts in draft status.
+[ ] Remove real names and private identifiers.
+[ ] Remove tokens, OAuth URLs, and credential details.
+[ ] Rewrite each episode as a step-by-step guide.
+[ ] Include commands and file paths when useful.
+[ ] Add verification steps, not just build steps.
+[ ] Keep affiliate links out of the first draft.
+[ ] Build a preview frontend.
+[ ] Verify frontend in a browser.
+[ ] Push to GitHub.
+[ ] Later, move to a real static blog generator.
+```
+
+The bigger lesson is simple: if an AI agent helps build the project, the build process can become its own asset. But only if the posts teach something concrete.

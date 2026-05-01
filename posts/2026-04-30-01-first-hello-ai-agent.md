@@ -1,93 +1,156 @@
 ---
-title: "I said hello to an AI agent and accidentally started a local media brand"
-description: "The beginning of a transparent build log about using an AI agent to create a local weekend guide, website, Telegram channel, and publishing workflow."
+title: "How I started an AI-agent build session from a blank chat"
+description: "A step-by-step guide to turning a vague first conversation with an AI agent into a scoped build project."
 date: "2026-04-30"
-slug: "first-hello-ai-agent-local-media-brand"
-tags: ["ai agents", "local media", "build in public", "solo founder", "Hermie Weekend"]
+slug: "first-hello-ai-agent"
+tags: ["ai agents", "project setup", "build log", "planning"]
 canonical_project: "Hermie Weekend"
 status: "draft"
 ---
 
-# I said hello to an AI agent and accidentally started a local media brand
+# How I started an AI-agent build session from a blank chat
 
-The first message was not dramatic. It was basically: are you there?
+I did not start with a product brief. I started with a tiny test: say hello, see if the agent was awake, then find out what it could actually do.
 
-That is how this started. Not with a strategy doc. Not with a pitch deck. Not with a weekend spent comparing no-code tools. Just me checking whether an AI agent was awake and useful.
+That sounds trivial, but it matters. If you are going to let an AI agent touch a real website, GitHub repo, deployment target, or Telegram channel, you need to learn its operating model before you ask for anything ambitious.
 
-A few hours later, I had the outline of a local media project: a small weekend guide for Naperville and the western suburbs, built around one annoying question that comes up in every group chat:
+This episode is the setup guide I wish I had written before the project began.
 
-What should we do this weekend?
+## What I was trying to learn
 
-I did not want to become a local influencer. I did not want to post under my real name. I did not want to make a personal brand out of going to farmers markets and kids activities. I wanted the opposite: a useful little brand that could exist on its own.
+Before asking the agent to build Hermie Weekend, I needed answers to four practical questions:
 
-That became Hermie Weekend.
+- Can it use tools, or does it only chat?
+- Can it access local files and GitHub?
+- Can it deploy or verify a website?
+- Can it remember project facts across sessions without leaking private information?
 
-## The actual starting point
+That first "are you there?" was less about conversation and more about probing the workspace.
 
-The first useful question was not "what business should I build?" It was more specific:
+## Step 1: confirm the agent is live
 
-Could an AI agent help me find fun weekend events near my area and summarize them in a clean Telegram-friendly format?
+The first check was simple.
 
-That mattered because the product I wanted was not a big app. It was a habit.
+```text
+are you there?
+```
 
-A short list of good weekend ideas. Local enough to feel useful. Short enough to forward. Consistent enough that people would start expecting it.
+The agent answered normally. That told me the chat transport was working, but nothing else.
 
-The AI agent was useful because it could do the messy middle work:
+A useful agent is not just a chatbot. For a build project, I need it to run commands, inspect files, push commits, deploy, and verify results. So the next step was to ask about web search.
 
-- turn a vague idea into a concrete site and content plan
-- research local events from official sources
-- write concise Telegram posts
-- create and edit website files
-- deploy to Cloudflare Pages
-- check the site in a browser
-- debug things like DNS, social thumbnails, and Lighthouse scores
+```text
+do you have access to web search?
+```
 
-That last part matters. The impressive part was not that the AI could write copy. Everyone knows AI can write copy. The useful part was that it could keep going through all the boring stuff that usually kills tiny projects.
+For any project involving current local events, DNS, platform behavior, or docs, this matters. Static model memory is not enough. I want the agent to verify facts from current sources.
 
-## Why local media?
+## Step 2: establish the working rule
 
-Local media is weirdly underserved.
+The main working rule was this: do not let the agent merely describe work. Make it do the work and verify it.
 
-There are official calendars, city pages, park district pages, venue pages, Facebook events, Eventbrite listings, parent blogs, tourism sites, and random SEO listicles. The problem is not lack of information. The problem is that the information is scattered and uneven.
+That means requests should be phrased as actions:
 
-A person does not want 80 events. They want five good options.
+```text
+Move this into its own GitHub repo.
+Deploy it to Cloudflare Pages.
+Check the live website in a browser.
+Run Lighthouse on mobile and desktop.
+```
 
-They want to know:
+Not:
 
-- Is this good for kids?
-- Is this date-night material?
-- Is it free or cheap?
-- Is it indoors if the weather is bad?
-- Is parking going to be annoying?
-- Can I send this to my spouse or group chat without explaining it?
+```text
+How would I move this into a repo?
+What are the steps to deploy this?
+```
 
-That felt like a good AI-assisted media product: small surface area, lots of source-checking, real local usefulness.
+Both kinds of prompts are valid, but they produce different behavior. If I want a build partner, I ask for outcomes and make verification part of the task.
 
-## The rule I set early
+## Step 3: give the project a tight constraint
 
-I wanted to stay anonymous.
+The product idea was intentionally small: a weekend guide for Naperville and the west suburbs.
 
-That constraint changed the project in a good way. Instead of building around me, the project needed a brand. A name, a voice, a look, a channel, a submission form, and a reason for people to care even if they never knew who was behind it.
+The constraints were more important than the idea:
 
-That is a healthier shape for this kind of project anyway. People do not need my life story to find something to do on Saturday.
+- keep me anonymous
+- use a brand-led identity instead of a personal one
+- keep costs low
+- prefer static hosting
+- use Telegram as the first distribution channel
+- collect event submissions through a form instead of open comments
 
-They need a good recommendation.
+A good agent can work with constraints. A vague "build me a startup" prompt is too open. A constrained local media MVP is buildable.
 
-## What this series is
+## Step 4: define what counts as done
 
-This is the build log I wish more people published.
+For this project, "done" never meant "the agent produced code." Done meant:
 
-Not a fake overnight success story. Not a thread about "10 lessons from launching my startup." Just the actual journey from hello to a functioning local media brand:
+- the site loads on the real domain
+- the GitHub repo exists and has a clean commit history
+- the Telegram channel is configured
+- the social preview works in WhatsApp or Telegram
+- Lighthouse and console checks pass
+- private information stays out of public files
 
-- how the idea became a website
-- how the brand got a voice and visual identity
-- how the Telegram channel got set up
-- how the content workflow works
-- how we handled deployment, DNS, link previews, and Lighthouse
-- how this could eventually become a small monetized media property through ads, sponsors, and affiliate revenue
+I kept pushing the agent toward live verification because visual projects can look correct in a file and still fail in production.
 
-I am writing this anonymously because that was part of the experiment from day one.
+## Step 5: capture durable facts, not secrets
 
-The question is simple: can one person, with an AI agent, build a useful local media asset without turning themselves into the product?
+The agent had persistent memory, so I used it for stable project facts:
 
-Hermie Weekend is my attempt to find out.
+- repo path
+- GitHub repo name
+- Cloudflare Pages project name
+- live domain
+- chosen design direction
+- Telegram channel URL
+
+I did not want secrets stored there. Tokens, OAuth callback URLs, bot credentials, and private identifiers should never become project memory or blog content.
+
+My rule: memory is for reusable context, not credentials.
+
+## Step 6: use the chat transcript as source material
+
+The transcript became the raw material for this build journal. That does not mean publishing the transcript. Raw chats are messy and full of private operational details.
+
+The useful content is the sequence:
+
+1. test the agent
+2. scope the local media idea
+3. build the site
+4. deploy it
+5. launch Telegram
+6. fix social previews
+7. optimize Lighthouse
+8. turn the build into instructional content
+
+That sequence is much more useful than a verbatim chat dump.
+
+## Mistakes to avoid
+
+Do not start by asking for a polished brand. Start by defining the operating loop.
+
+Do not let the agent skip verification. Ask it to check the real URL, not just the local file.
+
+Do not paste secrets into public artifacts. If an OAuth callback or token appears during setup, redact it immediately.
+
+Do not treat AI output as inherently safe. For this project, event submissions and scraped web pages are untrusted input. The agent can summarize them, but it should not blindly publish them.
+
+## The reusable playbook
+
+If I were starting another project with an AI agent, I would use this sequence:
+
+```text
+1. Confirm the agent is live.
+2. Confirm tool access: files, terminal, GitHub, browser, web search.
+3. State the privacy constraints.
+4. Define a small public outcome.
+5. Ask the agent to create real files, not just ideas.
+6. Verify in the browser.
+7. Commit and push.
+8. Store stable project facts, not secrets.
+9. Convert the build history into documentation while it is still fresh.
+```
+
+That was the first useful lesson. The hello was not the project. The workflow was.

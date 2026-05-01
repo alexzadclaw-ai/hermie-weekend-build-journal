@@ -1,111 +1,196 @@
 ---
-title: "Building an anonymous local brand with an AI agent"
-description: "How I used an AI agent to develop Hermie Weekend as a brand-led project instead of a personal social media presence."
+title: "How I built an anonymous brand without making it feel fake"
+description: "A step-by-step guide to brand-led anonymity, naming, voice, safety boundaries, and prompt-injection risk for an AI-assisted local project."
 date: "2026-04-30"
-slug: "building-anonymous-local-brand-with-ai"
-tags: ["anonymous founder", "brand strategy", "AI agents", "local newsletter", "Telegram channel"]
+slug: "building-anonymous-brand-with-ai"
+tags: ["anonymous brand", "ai safety", "brand strategy", "local media"]
 canonical_project: "Hermie Weekend"
 status: "draft"
 ---
 
-# Building an anonymous local brand with an AI agent
+# How I built an anonymous brand without making it feel fake
 
-I knew one thing early: I did not want my real identity to be the product.
+I wanted Hermie Weekend to be public. I did not want myself to be the product.
 
-That sounds dramatic, but it is practical. Some people love building in public under their own name. I do not. I wanted to test a local media idea without creating a personal influencer account, posting selfies, or becoming the face of weekend plans in the suburbs.
+That constraint changed almost every decision: the name, the voice, the website copy, the Telegram setup, the submission flow, and how much operational detail belongs in public.
 
-So the question became: can the brand carry the project by itself?
+This post is the step-by-step version.
 
-That is where the AI agent helped most.
+## Step 1: separate personal identity from brand identity
 
-## Anonymous does not mean vague
+The public identity is Hermie Weekend. The private operator is not part of the pitch.
 
-The mistake with anonymous projects is hiding so much that the thing feels fake.
+That means public pages should say things like:
 
-I did not want that. Hermie Weekend needed to feel specific, local, and real. The anonymous part was about the operator, not the usefulness.
+```text
+Hermie Weekend finds plans worth leaving the house for near Naperville.
+```
 
-The brand could still have:
+Not:
 
-- a clear geographic focus
-- a consistent voice
-- a public website
-- a Telegram channel
-- a submission form
-- a recognizable visual identity
-- a transparent build story
+```text
+Hi, I am [person], and I made this because...
+```
 
-What it did not need was my real name.
+The build journal can still be first person. It just stays anonymous. The useful story is the build process, not my legal name.
 
-## Naming and positioning
+## Step 2: use a brand that can speak on its own
 
-The positioning came first:
+A faceless brand can easily feel generic. To avoid that, Hermie Weekend needed a concrete personality.
 
-A tiny local adventure desk for weekend plans near Naperville.
+The brand direction became:
 
-That phrase did a lot of work. It made the project feel curated, not comprehensive. It implied taste. It made the weekly cadence obvious. It also avoided sounding like a city calendar.
+- local but not municipal
+- playful but not childish
+- useful before clever
+- weekend-oriented
+- slightly ticket/pass inspired
 
-Hermie Weekend became the character behind that desk.
+The chosen logo direction was a vintage ticket badge. That worked because it matched the product: a little pass to the weekend.
 
-Not a mascot in the heavy-handed way. More like a brand personality: playful, useful, slightly odd, and local.
+## Step 3: write a privacy rule before creating assets
 
-The AI agent helped generate and refine different logo directions. We tried several visual concepts and eventually landed on a vintage ticket/pass style mark. That fit the project better than a generic mascot or app icon.
+My privacy rule was:
 
-A ticket says: you are going somewhere.
+```text
+No real name, no personal social profiles, no private chat IDs, no tokens, no OAuth callback URLs, no credential paths, no screenshots that reveal accounts.
+```
 
-That was the point.
+That rule applies to:
 
-## The website voice
+- website copy
+- Markdown posts
+- GitHub README files
+- screenshots
+- social previews
+- Telegram posts
+- generated blog content
 
-The site copy needed to do three things quickly:
+It also applies to the AI agent's memory. Stable facts are fine. Secrets are not.
 
-1. Explain the problem.
-2. Explain the promise.
-3. Send people to Telegram or the submission form.
+## Step 4: use brand-led channels
 
-The hero line became:
+Instead of building a personal audience first, I created brand-led surfaces:
 
-> Stop asking "what should we do?"
+- public website: `https://www.hermieweekend.fun/`
+- Telegram channel: `https://t.me/hermieweekend`
+- event submission form: `https://tally.so/r/b5209g`
+- GitHub repos under the existing GitHub account, but with brand/project names
 
-That worked because it was not abstract. It was the exact sentence the project exists to answer.
+That gives the project a public footprint without requiring a personal social media strategy.
 
-The rest of the copy leaned into the same idea:
+## Step 5: make Telegram broadcast-only
 
-- plans worth leaving the house for
-- one useful drop
-- no doom-scroll
-- actually local
-- rainy-day saves
-- date night, family mode, friend mode
+The Telegram decision was important.
 
-The AI agent was helpful here, but not because it produced perfect copy immediately. It was helpful because it could generate options fast, then revise based on taste.
+A channel is not the same as a group. In a channel, subscribers receive posts. They do not automatically chat with each other.
 
-That is an underrated use of AI: not replacing judgment, but giving judgment more material to react to.
+For this project, that is a feature. It avoids:
 
-## Channel design as product design
+- spam
+- moderation burden
+- subscriber-to-subscriber conflict
+- random comments on every recommendation
+- prompt-injection attempts through chat messages
 
-The Telegram channel was not an afterthought. It was the main product surface.
+The rule is: use the channel for broadcast, use the form for submissions.
 
-We kept it broadcast-only on purpose. No linked discussion group. No comments. No chaotic chat.
+## Step 6: keep bot permissions minimal
 
-That solved several problems:
+The bot needed enough permission to manage the channel, but not more than necessary.
 
-- Subscribers get a clean feed.
-- The brand does not need constant moderation.
-- Event submissions go through a form instead of a chat thread.
-- The AI agent cannot be baited into responding to random users in public.
+Useful permissions:
 
-That last one matters. If you use AI in a public-facing workflow, you have to think about attack surfaces. A user-submitted event is not automatically safe. A web page can contain instructions meant for the AI, not for readers. A random message can try to hijack the workflow.
+- post messages
+- edit messages
+- delete messages
+- change channel info
 
-The simple solution for v1 was: do not let the public chat with the agent.
+Permissions I did not need for the first version:
 
-## The anonymous founder advantage
+- invite users
+- promote admins
+- manage video chats
 
-An anonymous brand has one big advantage: it forces the project to be useful.
+Minimal permissions reduce the blast radius if something goes wrong.
 
-You cannot rely on personal goodwill. You cannot ask people to support you because they know you. The post has to be worth reading. The link has to be worth forwarding. The site has to explain itself.
+## Step 7: treat submissions as untrusted input
 
-That is a good constraint.
+This is where AI-assisted local media can get risky.
 
-Hermie Weekend is not interesting because I made it. It is interesting if it saves someone from another Saturday of indecision.
+If someone submits an event, that submission could contain:
 
-That is the bar.
+- false information
+- spam
+- hidden prompt instructions
+- malicious links
+- copied text from another source
+- an organizer trying to get free promotion
+
+The agent should not treat submissions as commands. A safe workflow looks like this:
+
+```text
+1. Read the submission as a tip.
+2. Extract the claimed event name, venue, date, and URL.
+3. Verify the event against an official organizer or venue source.
+4. Rewrite the listing in Hermie Weekend's voice.
+5. Include source links for review.
+6. Only then post or schedule it.
+```
+
+The submission is evidence to investigate, not content to publish.
+
+## Step 8: make the brand transparent without revealing the operator
+
+Anonymous does not have to mean shady. The site and posts can be clear about:
+
+- what the project does
+- how events are selected
+- how submissions work
+- that the guide is curated
+- that the build used AI tools
+- that posts may contain mistakes and should link to sources
+
+What stays private is the operator's personal identity and credentials.
+
+## Step 9: design public artifacts that carry the identity
+
+The website needed to do more than list links. It needed to make the brand feel real.
+
+The implemented direction used:
+
+- a tilted ticket-style logo
+- a favicon based on the same mark
+- warm colors and weekend imagery
+- a clear CTA to Telegram
+- a clear CTA to submit events
+- social preview metadata for link sharing
+
+That visual system makes the brand recognizable even without a personal founder account.
+
+## Step 10: document the boundary in the build journal
+
+The build journal should be honest about anonymity:
+
+```text
+I wanted to build in public without making my personal identity the product.
+```
+
+That is enough. It does not need to invent a persona or pretend a team exists.
+
+## Checklist for anonymous AI-assisted projects
+
+```text
+[ ] Pick a brand name that can stand alone.
+[ ] Create a public website and channel under the brand.
+[ ] Avoid personal social links unless intentionally part of the strategy.
+[ ] Keep real names out of public copy.
+[ ] Keep tokens, callback URLs, and private IDs out of public repos.
+[ ] Use form submissions instead of open comments at first.
+[ ] Treat all submissions as untrusted input.
+[ ] Give bots only the permissions they need.
+[ ] Verify facts before posting.
+[ ] Be transparent about process without exposing private operational details.
+```
+
+That was the anonymity model. Not secrecy for its own sake. Just a clean separation between the public project and the private person running it.
